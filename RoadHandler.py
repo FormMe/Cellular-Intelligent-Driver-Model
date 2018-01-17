@@ -1,9 +1,11 @@
 import numpy as np
 
-from Vehicle import IVehicle, Car, Bus, Truck
+from Vehicle import Vehicle, Car, Truck
 
 class Road:
     def __init__(self, lanesCount, length):
+        self.lanesCount = lanesCount
+        self.length = length
         self.map = np.zeros((lanesCount, length))
 
 

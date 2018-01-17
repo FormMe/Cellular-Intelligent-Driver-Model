@@ -1,10 +1,10 @@
-class IVehicle:
-    def __init__(self, v_id, startVelocity, maxVelocity, acceleration, length, reaction):
+class Vehicle:
+    def __init__(self, v_id, size, acceleration, startVelocity, maxVelocity, reaction):
         self.v_id = v_id
         self.velocity = startVelocity
         self.maxVelocity = maxVelocity
         self.acceleration = acceleration
-        self.length = length
+        self.size = size
         self.reaction = reaction
 
     def calc_coord(self):
@@ -16,10 +16,9 @@ class IVehicle:
     def step(self):
         self.calc_coord()
         self.ident_collision()
-        pass
 
 
-class Car(IVehicle):
+class Car(Vehicle):
     def calc_coord(self):
         print('Car calc')
 
@@ -27,7 +26,7 @@ class Car(IVehicle):
         print('Car coll')
 
 
-class Bus(IVehicle):
+class Bus(Vehicle):
     def calc_coord(self):
         print('Bus calc')
 
@@ -35,7 +34,7 @@ class Bus(IVehicle):
         print('Bus coll')
 
 
-class Truck(IVehicle):
+class Truck(Vehicle):
     def calc_coord(self):
         print('Truck calc')
 
