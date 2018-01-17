@@ -1,42 +1,36 @@
 class Vehicle:
-    def __init__(self, v_id, size, acceleration, startVelocity, maxVelocity, reaction):
+    def __init__(self, v_id, size, distance, acceleration, startVelocity, maxVelocity, reaction):
         self.v_id = v_id
         self.velocity = startVelocity
+        self.distance = distance
         self.maxVelocity = maxVelocity
         self.acceleration = acceleration
         self.size = size
         self.reaction = reaction
+        self.collision = False
+        self.lane = None
+        self.coords = []
 
-    def calc_coord(self):
-        pass
+    def calc_coord(self, road):
 
-    def ident_collision(self):
-        pass
+        for i, pos in enumerate(self.coords):
+            self.coords[i] = (pos + 1) % road.length
+        return self.coords, self.lane
 
-    def step(self):
-        self.calc_coord()
-        self.ident_collision()
 
 
 class Car(Vehicle):
     def calc_coord(self):
-        print('Car calc')
+       pass
 
     def ident_collision(self):
-        print('Car coll')
+       pass
 
-
-class Bus(Vehicle):
-    def calc_coord(self):
-        print('Bus calc')
-
-    def ident_collision(self):
-        print('Bus coll')
 
 
 class Truck(Vehicle):
     def calc_coord(self):
-        print('Truck calc')
+       pass
 
     def ident_collision(self):
-        print('Truck coll')
+       pass
