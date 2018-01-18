@@ -10,8 +10,8 @@ vehicles = creator.create_vehicles()
 creator.dist_vehicles(vehicles, road)
 handler = RoadHandler(road, vehicles)
 
-for v in handler.vehicles:
-    print(v.lane, v.coords, v.v_id)
 while True:
     handler.step()
     print(handler.road.map, flush=True)
+    # for v in handler.vehicles:
+    #     print(v.lane, v.coords, v.v_id, v.velocity, v.maxVelocity)
