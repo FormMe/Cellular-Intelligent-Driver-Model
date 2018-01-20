@@ -9,7 +9,6 @@ class Road:
         self.length = length
         self.map = np.zeros((lanesCount, length))
 
-
 class RoadHandler:
     def __init__(self, road, vehicles):
         self.road = road

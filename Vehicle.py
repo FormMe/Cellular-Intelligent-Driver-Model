@@ -72,7 +72,7 @@ class Vehicle:
         elif dist - self.velocity != self.distance:
             self.velocity = min(self.velocity + self.acceleration, self.maxVelocity)
 
-        print(dist, front_id, self.__dict__)
+        # print(dist, front_id, self.__dict__)
         for i, pos in enumerate(self.coords):
             self.coords[i] = (pos + self.velocity) % road.length
         return self.coords, self.lane

@@ -1,6 +1,5 @@
-import os
+import copy
 
-from Vehicle import Vehicle, Car, Truck
 from RoadHandler import Road, RoadHandler
 from StochasticTrafficCreator import StochasticTrafficCreator
 
@@ -9,16 +8,31 @@ creator = StochasticTrafficCreator()
 vehicles = creator.create_vehicles()
 creator.dist_vehicles(vehicles, road)
 handler = RoadHandler(road, vehicles)
+N = 50
+throughputVals = []
+throughput = 0
+collisionVals = []
+collision = 0
 
-while True:
-    for lane in handler.road.map:
-        for pos in lane:
-            if pos == 0:
-                print("_", end="\t")
-            else:
-                print(int(pos), end="\t")
-        print("")
+for s in range(1, 501):
+    # for lane in handler.road.map:
+    #     for pos in lane:
+    #         if pos == 0:
+    #             print("_", end="\t")
+    #         else:
+    #             print(int(pos), end="\t")
+    #     print("")
 
+    prevVehicles = copy.deepcopy(vehicles)
     handler.step()
-    # for v in handler.vehicles:
-    #     print(v.lane, v.coords, v.v_id, v.velocity, v.maxVelocity)
+    for v, prevV in zip(vehicles, prevVehicles):
+        if prevV.coords[-1] > v.coords[-1]:
+            throughput += 1
+
+    if s % N == 0:
+        throughputVals.append(throughput)
+        throughput = 0
+        collisionVals.append(collision)
+        collision = 0
+
+print(throughputVals)
