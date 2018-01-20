@@ -20,7 +20,7 @@ class RoadHandler:
         for v in self.vehicles:
             old_coord = list(v.coords)
             old_lane = int(v.lane)
-            new_coord, new_lane = v.calc_coord(self.road)
+            new_coord, new_lane = v.calc_coord(self.road, self.vehicles)
 
             for pos in old_coord:
                 self.road.map[old_lane][pos] = 0

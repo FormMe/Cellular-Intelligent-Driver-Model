@@ -6,8 +6,8 @@ from RoadHandler import Road
 
 class StochasticTrafficCreator:
     def __init__(self):
-        self.carCount = 6
-        self.truckCount = 4
+        self.carCount = 8
+        self.truckCount = 6
 
         self.sizeVelCarDist = random.randint(1, 3, self.carCount)
         self.sizeVelTruckDist = random.randint(3, 5, self.truckCount)
@@ -38,7 +38,7 @@ class StochasticTrafficCreator:
                         distance=distance,
                         startVelocity=startVel,
                         maxVelocity=maxVel,
-                        reaction=react,
+                        reaction=0.8,
                         type="Car")
             # v.__class__ = Car
             vehicles.append(v)
@@ -52,7 +52,7 @@ class StochasticTrafficCreator:
                         distance=distance,
                         startVelocity=startVel,
                         maxVelocity=maxVel,
-                        reaction=react,
+                        reaction=0.8,
                         type="Truck")
             # v.__class__ = Truck
             vehicles.append(v)
