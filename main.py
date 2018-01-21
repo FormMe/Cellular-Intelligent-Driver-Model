@@ -3,15 +3,15 @@ import copy
 from RoadHandler import Road, RoadHandler
 from StochasticTrafficCreator import StochasticTrafficCreator
 
-road = Road(4, 100)
+road = Road(4, 1000)
 creator = StochasticTrafficCreator(car_count=30,
                                    truck_count=int(30*0.2),
-                                   car_size=3,
-                                   truck_size=10,
-                                   acceleration_mean=1, acceleration_sigma=0.15,
-                                   car_velocity_mean=19, car_velocity_sigma=3,
-                                   truck_velocity_mean=14, truck_velocity_sigma=2,
-                                   distance_mean=2, distance_sigma=0.6,
+                                   car_size=30,
+                                   truck_size=100,
+                                   acceleration_mean=10, acceleration_sigma=1.5,
+                                   car_velocity_mean=190, car_velocity_sigma=30,
+                                   truck_velocity_mean=140, truck_velocity_sigma=20,
+                                   distance_mean=20, distance_sigma=6,
                                    probability_of_right_driver_reaction_mean=0.95, probability_of_right_driver_reaction_sigma=0.01)
 vehicles = creator.create_vehicles()
 creator.dist_vehicles(vehicles, road)

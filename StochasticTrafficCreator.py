@@ -36,8 +36,8 @@ class StochasticTrafficCreator:
         self.distanceVelCarDist = normal_integers(distance_mean, distance_sigma, self.carCount)
         self.distanceVelTruckDist = normal_integers(distance_mean, distance_sigma, self.truckCount)
 
-        self.reactCarDist = normal_integers(probability_of_right_driver_reaction_mean, probability_of_right_driver_reaction_sigma, self.carCount)
-        self.reactTruckDist = normal_integers(probability_of_right_driver_reaction_mean, probability_of_right_driver_reaction_sigma, self.truckCount)
+        self.reactCarDist = random.normal(probability_of_right_driver_reaction_mean, probability_of_right_driver_reaction_sigma, self.carCount)
+        self.reactTruckDist = random.normal(probability_of_right_driver_reaction_mean, probability_of_right_driver_reaction_sigma, self.truckCount)
 
     def create_vehicles(self):
         vehicles = []
