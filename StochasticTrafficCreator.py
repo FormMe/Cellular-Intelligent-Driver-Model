@@ -6,23 +6,23 @@ from RoadHandler import Road
 
 class StochasticTrafficCreator:
     def __init__(self):
-        self.carCount = 8
-        self.truckCount = 6
+        self.carCount = 80
+        self.truckCount = 20
 
-        self.sizeVelCarDist = random.randint(1, 3, self.carCount)
-        self.sizeVelTruckDist = random.randint(3, 5, self.truckCount)
+        self.sizeVelCarDist = random.randint(3, 5, self.carCount)
+        self.sizeVelTruckDist = [6] * self.truckCount
+
+        self.accCarDist = random.randint(1, 2, self.carCount)
+        self.accTruckDist = random.randint(1, 2, self.truckCount)
+
+        self.startVelCarDist = self.normal_integers(22, 3, self.carCount)
+        self.startVelTruckDist = self.normal_integers(22, 3, self.truckCount)
+
+        self.maxVelCarDist = self.normal_integers(22, 3, self.truckCount)
+        self.maxVelTruckDist = self.normal_integers(22, 3, self.truckCount)
 
         self.distanceVelCarDist = random.randint(1, 3, self.carCount)
         self.distanceVelTruckDist = random.randint(2, 4, self.truckCount)
-
-        self.accCarDist = random.randint(1, 4, self.carCount)
-        self.accTruckDist = random.randint(1, 3, self.truckCount)
-
-        self.startVelCarDist = random.randint(0, 2, self.carCount)
-        self.startVelTruckDist = random.randint(0, 2, self.truckCount)
-
-        self.maxVelCarDist = random.randint(1, 6, self.carCount)
-        self.maxVelTruckDist = random.randint(1, 4, self.truckCount)
 
         self.reactCarDist = random.randint(2, 3, self.carCount)
         self.reactTruckDist = random.randint(2, 3, self.truckCount)
@@ -78,3 +78,5 @@ class StochasticTrafficCreator:
                         v.coords.append((pos + i) % road.length)
                     break
 
+    def normal_integers(self, mu, sigma, size):
+        return [int(x * 10) if x > 0 else int(-x * 10) for x in random.normal(mu, sigma, size)]

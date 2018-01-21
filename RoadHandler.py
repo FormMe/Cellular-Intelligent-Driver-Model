@@ -31,15 +31,14 @@ class RoadHandler:
         self.vehicles = [v for v in self.vehicles if v.coords != []]
         for l in range(self.road.lanesCount):
             for i, v1 in enumerate(self.vehicles):
-                # только те машины на линии что еще не в аварии
+                # on the lane there are onoly those cars that have not crashed yet
                 if v1.collision == -1 and v1.lane == l:
                     for j, v2 in enumerate(self.vehicles):
                         if v1.v_id != v2.v_id and v2.lane == l:
                             v1_head = v1.coords[-1]
                             v2_head = v2.coords[-1]
 
-                            # если координаты головы машины пересекаются или сзади перередней машины
-                            # то значит столкновение произошло
+                            # if coordinates of car's head or tail intersect with other car, then the crash has happened
                             if (v1_head + 1) % self.road.length in v2.coords \
                                     or (v2_head + 1) % self.road.length in v1.coords:
 

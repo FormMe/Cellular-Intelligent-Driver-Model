@@ -16,7 +16,7 @@ class Vehicle:
 
     def calc_coord(self, road, vehicles):
 
-        #если машина в столкновении она стоит на месте определенное время, потом исчезает
+        #if the car is in the crash, it stays for a while, then continues movement
         if self.collision > 0:
             self.collision -= 1
             self.velocity = 0
@@ -36,21 +36,15 @@ class Vehicle:
                 dist = pos - head - 1 if pos > head else road.length - 1 - head + pos
                 break
 
-        # если расстояние с передней машиной стало маленьким
-        # в зависимости от того среагировали или нет
-        # определяем возможность перестроиться или тормозить
         if dist - self.velocity - self.acceleration < self.distance \
                 and np.random.uniform(0, 1) < self.reaction:
 
             def check_lane(l):
-                # нет ли кого то слева прямо сейчас и впереди
                 for pos in range(tail, head + self.distance + self.acceleration + 1):
                     near = road.map[l][pos % road.length] == 0
                     if near:
                         return False
 
-                # предсказываем где будет едущая на соседней полосе сздади машина
-                # на следующем шаге. если дальше или вблизи, то не перестраиваемся
                 for i in range(1, road.length + 1):
                     dist_l = i - 1
                     back_id = road.map[l][head - i]
@@ -63,23 +57,18 @@ class Vehicle:
 
             self.velocity = 0
             overtake = False
-            # проверяем полосу справа
             if self.lane != road.lanesCount - 1:
                 overtake = check_lane(self.lane + 1)
-                print(overtake)
 
             if overtake:
                 self.lane = self.lane + 1
                 self.velocity = self.acceleration
-            # проверяем полосу слева
             elif self.lane != 0:
                 overtake = check_lane(self.lane - 1)
-                print(overtake)
                 if overtake:
                     self.lane = self.lane - 1
                     self.velocity = self.acceleration
 
-        #если расстояния достаточно и оно будет не минимальным, ускоряемся
         elif dist - self.velocity != self.distance:
             self.velocity = min(self.velocity + self.acceleration, self.maxVelocity)
 
