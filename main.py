@@ -3,7 +3,7 @@ import copy
 from RoadHandler import Road, RoadHandler
 from StochasticTrafficCreator import StochasticTrafficCreator
 
-road = Road(5, 35)
+road = Road(5, 250)
 creator = StochasticTrafficCreator()
 vehicles = creator.create_vehicles()
 creator.dist_vehicles(vehicles, road)
@@ -18,9 +18,9 @@ for s in range(1, 501):
     for lane in handler.road.map:
         for pos in lane:
             if pos == 0:
-                print("_", end="\t")
+                print("_")
             else:
-                print(int(pos), end="\t")
+                print(int(pos))
         print("")
     # print("********************************************************************")
 
@@ -39,4 +39,5 @@ for s in range(1, 501):
         collisionVals.append(collision)
         collision = 0
 
+print(sum(throughputVals) / float(len(throughputVals)))
 print(throughputVals, collisionVals)
