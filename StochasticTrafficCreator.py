@@ -45,65 +45,6 @@ class StochasticTrafficCreator:
         self.reactCarDist = random.normal(probability_of_right_driver_reaction_mean, probability_of_right_driver_reaction_sigma, self.carCount)
         self.reactTruckDist = random.normal(probability_of_right_driver_reaction_mean, probability_of_right_driver_reaction_sigma, self.truckCount)
 
-        # ------ plots ------
-        bars = 10
-
-        # acceleration cars
-        plt.hist([x / 10.0 for x in self.accCarDist], bars, normed=True, label="Cars")
-        plt.xlabel("Acceleration (in meters per conventional time unit in square)")
-        plt.ylabel("Probability density")
-        plt.savefig('Acceleration cars')
-        plt.close()
-
-        # acceleration trucks
-        plt.hist([x / 10.0 for x in self.accTruckDist], bars, normed=True, label="Trucks")
-        plt.xlabel("Acceleration (in meters per conventional time unit in square)")
-        plt.ylabel("Probability density")
-        plt.savefig('Acceleration trucks')
-        plt.close()
-
-        # velocity cars
-        plt.hist([x / 10.0 for x in self.maxVelCarDist], bars, normed=True, label="Cars")
-        plt.xlabel("Max velocity (in meters per conventional time unit)")
-        plt.ylabel("Probability density")
-        plt.savefig('Max velocity cars')
-        plt.close()
-
-        # velocity trucks
-        plt.hist([x / 10.0 for x in self.maxVelTruckDist], bars, normed=True, label="Trucks")
-        plt.xlabel("Max velocity (in meters per conventional time unit)")
-        plt.ylabel("Probability density")
-        plt.savefig('Max velocity trucks')
-        plt.close()
-
-        # min distance cars
-        plt.hist([x / 10.0 for x in self.distanceVelCarDist], bars, normed=True, label="Cars")
-        plt.xlabel("Min distance (meters)")
-        plt.ylabel("Probability density")
-        plt.savefig('Min distance cars')
-        plt.close()
-
-        # min distance trucks
-        plt.hist([x / 10.0 for x in self.distanceVelTruckDist], bars, normed=True, label="Trucks")
-        plt.xlabel("Min distance (meters)")
-        plt.ylabel("Probability density")
-        plt.savefig('Min distance trucks')
-        plt.close()
-
-        # probability of correct driver reaction (cars)
-        plt.hist(self.reactCarDist, bars, normed=True, label="Cars")
-        plt.xlabel("Probability of correct driver reaction")
-        plt.ylabel("Probability density")
-        plt.savefig('Correct driver reaction (cars)')
-        plt.close()
-
-        # probability of correct driver reaction (trucks)
-        plt.hist(self.reactTruckDist, bars, normed=True, label="Trucks")
-        plt.xlabel("Probability of correct driver reaction")
-        plt.ylabel("Probability density")
-        plt.savefig('Correct driver reaction (trucks)')
-        plt.close()
-
     def create_vehicles(self):
         vehicles = []
         for size, acc, distance, \
