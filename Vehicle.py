@@ -57,7 +57,7 @@ class Vehicle:
                     if back_id != 0 and back_id != self.v_id:
                         print(self.v_id, back_id)
                         back_v = [v for v in vehicles if v.v_id == back_id][0]
-                        return dist_l - back_v.velocity - back_v.acceleration >= back_v.distance
+                        return dist_l - back_v.velocity  >= back_v.distance
 
                 return True
 
@@ -66,6 +66,7 @@ class Vehicle:
             # проверяем полосу справа
             if self.lane != road.lanesCount - 1:
                 overtake = check_lane(self.lane + 1)
+                print(overtake)
 
             if overtake:
                 self.lane = self.lane + 1
@@ -73,6 +74,7 @@ class Vehicle:
             # проверяем полосу слева
             elif self.lane != 0:
                 overtake = check_lane(self.lane - 1)
+                print(overtake)
                 if overtake:
                     self.lane = self.lane - 1
                     self.velocity = self.acceleration

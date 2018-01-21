@@ -1,6 +1,6 @@
 from numpy import random
 
-from Vehicle import Vehicle, Car, Truck
+from Vehicle import Vehicle
 from RoadHandler import Road
 
 

@@ -22,7 +22,7 @@ for s in range(1, 501):
             else:
                 print(int(pos), end="\t")
         print("")
-    print("********************************************************************")
+    # print("********************************************************************")
 
     prevVehicles = copy.deepcopy(vehicles)
     coll, vehicles = handler.step(s)

@@ -1,6 +1,6 @@
 import numpy as np
 
-from Vehicle import Vehicle, Car, Truck
+from Vehicle import Vehicle
 
 
 class Road:
@@ -36,9 +36,7 @@ class RoadHandler:
                     for j, v2 in enumerate(self.vehicles):
                         if v1.v_id != v2.v_id and v2.lane == l:
                             v1_head = v1.coords[-1]
-                            v1_tail = v1.coords[0]
                             v2_head = v2.coords[-1]
-                            v2_tail = v2.coords[0]
 
                             # если координаты головы машины пересекаются или сзади перередней машины
                             # то значит столкновение произошло
@@ -48,7 +46,7 @@ class RoadHandler:
                                 self.vehicles[i].collision = self.collision_time
                                 self.vehicles[j].collision = self.collision_time
                                 collisions += 1
-                                print(s, self.vehicles[i].v_id, self.vehicles[i].coords,
-                                      self.vehicles[j].v_id, self.vehicles[j].coords)
+                                # print(s, self.vehicles[i].v_id, self.vehicles[i].coords,
+                                #       self.vehicles[j].v_id, self.vehicles[j].coords)
 
         return collisions, self.vehicles
