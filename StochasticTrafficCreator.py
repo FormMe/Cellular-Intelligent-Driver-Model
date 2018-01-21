@@ -4,28 +4,40 @@ from Vehicle import Vehicle
 from RoadHandler import Road
 
 
+def normal_integers(mu, sigma, size):
+    return [int(x) if x > 0 else int(-x) for x in random.normal(mu, sigma, size)]
+
+
 class StochasticTrafficCreator:
-    def __init__(self):
-        self.carCount = 80
-        self.truckCount = 20
+    def __init__(self,
+                 car_count, truck_count,
+                 car_size, truck_size,
+                 acceleration_mean, acceleration_sigma,
+                 car_velocity_mean, car_velocity_sigma,
+                 truck_velocity_mean, truck_velocity_sigma,
+                 distance_mean, distance_sigma,
+                 probability_of_right_driver_reaction_mean, probability_of_right_driver_reaction_sigma):
 
-        self.sizeVelCarDist = random.randint(3, 5, self.carCount)
-        self.sizeVelTruckDist = [6] * self.truckCount
+        self.carCount = car_count
+        self.truckCount = truck_count
 
-        self.accCarDist = random.randint(1, 2, self.carCount)
-        self.accTruckDist = random.randint(1, 2, self.truckCount)
+        self.sizeVelCarDist = [car_size] * self.carCount
+        self.sizeVelTruckDist = [truck_size] * self.truckCount
 
-        self.startVelCarDist = self.normal_integers(22, 3, self.carCount)
-        self.startVelTruckDist = self.normal_integers(22, 3, self.truckCount)
+        self.accCarDist = normal_integers(acceleration_mean, acceleration_sigma, self.carCount)
+        self.accTruckDist = normal_integers(acceleration_mean, acceleration_sigma, self.truckCount)
 
-        self.maxVelCarDist = self.normal_integers(22, 3, self.truckCount)
-        self.maxVelTruckDist = self.normal_integers(22, 3, self.truckCount)
+        self.maxVelCarDist = normal_integers(car_velocity_mean, car_velocity_sigma, self.carCount)
+        self.maxVelTruckDist = normal_integers(truck_velocity_mean, truck_velocity_sigma, self.truckCount)
 
-        self.distanceVelCarDist = random.randint(1, 3, self.carCount)
-        self.distanceVelTruckDist = random.randint(2, 4, self.truckCount)
+        self.startVelCarDist = self.maxVelCarDist
+        self.startVelTruckDist = self.maxVelTruckDist
 
-        self.reactCarDist = random.randint(2, 3, self.carCount)
-        self.reactTruckDist = random.randint(2, 3, self.truckCount)
+        self.distanceVelCarDist = normal_integers(distance_mean, distance_sigma, self.carCount)
+        self.distanceVelTruckDist = normal_integers(distance_mean, distance_sigma, self.truckCount)
+
+        self.reactCarDist = normal_integers(probability_of_right_driver_reaction_mean, probability_of_right_driver_reaction_sigma, self.carCount)
+        self.reactTruckDist = normal_integers(probability_of_right_driver_reaction_mean, probability_of_right_driver_reaction_sigma, self.truckCount)
 
     def create_vehicles(self):
         vehicles = []
@@ -78,5 +90,3 @@ class StochasticTrafficCreator:
                         v.coords.append((pos + i) % road.length)
                     break
 
-    def normal_integers(self, mu, sigma, size):
-        return [int(x * 10) if x > 0 else int(-x * 10) for x in random.normal(mu, sigma, size)]
