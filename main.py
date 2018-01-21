@@ -3,28 +3,33 @@ import copy
 from RoadHandler import Road, RoadHandler
 from StochasticTrafficCreator import StochasticTrafficCreator
 
-road = Road(4, 2500)
-creator = StochasticTrafficCreator(car_count=30,
+road_length = 2000
+lanes_number = 4
+road = Road(lanes_number, road_length)
+# 1 for normal 4-lane traffic
+risk_coefficient = 0.6
+creator = StochasticTrafficCreator(car_count=20,
                                    truck_count=int(30*0.2),
                                    car_size=30,
                                    truck_size=100,
-                                   acceleration_mean=10, acceleration_sigma=1.5,
-                                   car_velocity_mean=190, car_velocity_sigma=30,
-                                   truck_velocity_mean=140, truck_velocity_sigma=20,
-                                   distance_mean=20, distance_sigma=6,
-                                   probability_of_right_driver_reaction_mean=0.95, probability_of_right_driver_reaction_sigma=0.01)
+                                   acceleration_mean=10 * risk_coefficient, acceleration_sigma=1.5,
+                                   car_velocity_mean=190 * risk_coefficient, car_velocity_sigma=30,
+                                   truck_velocity_mean=140 * risk_coefficient, truck_velocity_sigma=20,
+                                   distance_mean=20 * (2 - risk_coefficient), distance_sigma=6,
+                                   probability_of_right_driver_reaction_mean=0.99, probability_of_right_driver_reaction_sigma=0.001)
 vehicles = creator.create_vehicles()
 creator.dist_vehicles(vehicles, road)
 handler = RoadHandler(road, vehicles)
-N = 50
+steps_for_statistics = 100
 throughputVals = []
 throughput = 0
 collisionVals = []
 collision = 0
 
-for s in range(1, 501):
+number_of_steps = 4000
+for s in range(1, number_of_steps + 1):
     for lane in handler.road.map:
-        for pos in lane:
+        for pos in lane[::10]:
             if pos == 0:
                 print("_"),
             else:
@@ -41,11 +46,12 @@ for s in range(1, 501):
         if prevV.coords[-1] > v.coords[-1]:
             throughput += 1
 
-    if s % N == 0:
+    if s % steps_for_statistics == 0:
         throughputVals.append(throughput)
         throughput = 0
         collisionVals.append(collision)
         collision = 0
 
-print(sum(throughputVals) / float(len(throughputVals)))
+print("avg throughput in cars/100 conventional time units", sum(throughputVals) / float(len(throughputVals)))
+print("avg collisions in times/100 conventional time units", sum(collisionVals) / float(len(collisionVals)))
 print(throughputVals, collisionVals)

@@ -50,7 +50,7 @@ class StochasticTrafficCreator:
                         distance=distance,
                         startVelocity=startVel,
                         maxVelocity=maxVel,
-                        reaction=1,
+                        reaction=react,
                         type="Car")
             # v.__class__ = Car
             vehicles.append(v)
@@ -64,7 +64,7 @@ class StochasticTrafficCreator:
                         distance=distance,
                         startVelocity=startVel,
                         maxVelocity=maxVel,
-                        reaction=1,
+                        reaction=react,
                         type="Truck")
             # v.__class__ = Truck
             vehicles.append(v)
