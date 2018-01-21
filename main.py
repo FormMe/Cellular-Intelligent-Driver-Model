@@ -3,7 +3,7 @@ import copy
 from RoadHandler import Road, RoadHandler
 from StochasticTrafficCreator import StochasticTrafficCreator
 
-road = Road(4, 1000)
+road = Road(4, 2500)
 creator = StochasticTrafficCreator(car_count=30,
                                    truck_count=int(30*0.2),
                                    car_size=30,
@@ -26,11 +26,11 @@ for s in range(1, 501):
     for lane in handler.road.map:
         for pos in lane:
             if pos == 0:
-                print("_")
+                print("_"),
             else:
-                print(int(pos))
+                print(int(pos)),
         print("")
-    # print("********************************************************************")
+    print("step", s)
 
     prevVehicles = copy.deepcopy(vehicles)
     coll, vehicles = handler.step(s)
