@@ -9,12 +9,21 @@ class Vehicle:
         self.acceleration = acceleration
         self.size = size
         self.reaction = reaction
-        self.collision = False
+        self.collision = -1
         self.lane = None
         self.coords = []
         self.type = type
 
     def calc_coord(self, road, vehicles):
+
+        #если машина в столкновении она стоит на месте определенное время, потом исчезает
+        if self.collision > 0:
+            self.collision -= 1
+            self.velocity = 0
+            if self.collision == 0:
+                self.coords = []
+            return self.coords, self.lane
+
         head = self.coords[-1]
         tail = self.coords[0]
         dist = 0
@@ -75,20 +84,5 @@ class Vehicle:
         # print(dist, front_id, self.__dict__)
         for i, pos in enumerate(self.coords):
             self.coords[i] = (pos + self.velocity) % road.length
+
         return self.coords, self.lane
-
-
-class Car(Vehicle):
-    def calc_coord(self):
-        pass
-
-    def ident_collision(self):
-        pass
-
-
-class Truck(Vehicle):
-    def calc_coord(self):
-        pass
-
-    def ident_collision(self):
-        pass

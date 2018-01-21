@@ -38,7 +38,7 @@ class StochasticTrafficCreator:
                         distance=distance,
                         startVelocity=startVel,
                         maxVelocity=maxVel,
-                        reaction=0.8,
+                        reaction=1,
                         type="Car")
             # v.__class__ = Car
             vehicles.append(v)
@@ -52,7 +52,7 @@ class StochasticTrafficCreator:
                         distance=distance,
                         startVelocity=startVel,
                         maxVelocity=maxVel,
-                        reaction=0.8,
+                        reaction=1,
                         type="Truck")
             # v.__class__ = Truck
             vehicles.append(v)
@@ -66,7 +66,7 @@ class StochasticTrafficCreator:
                                       else int(road.lanesCount*0.2)+1)
                 pos = random.randint(road.length)
                 freeSpace = True
-                for i in range(v.size):
+                for i in range(v.size + 1):
                     freeSpace = road.map[lane][(pos + i) % road.length] == 0
                     if not freeSpace:
                         break
