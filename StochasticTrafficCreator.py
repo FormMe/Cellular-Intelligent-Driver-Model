@@ -1,4 +1,5 @@
 from numpy import random
+import matplotlib.pyplot as plt
 
 from Vehicle import Vehicle
 from RoadHandler import Road
@@ -24,20 +25,76 @@ class StochasticTrafficCreator:
         self.sizeVelCarDist = [car_size] * self.carCount
         self.sizeVelTruckDist = [truck_size] * self.truckCount
 
+        # acceleration in meters per conventional time unit (cars/trucks) (x: acceleration,
+        # y: probability density)
         self.accCarDist = normal_integers(acceleration_mean, acceleration_sigma, self.carCount)
         self.accTruckDist = normal_integers(acceleration_mean, acceleration_sigma, self.truckCount)
 
+        # max velocity meters on conventional time unit
         self.maxVelCarDist = normal_integers(car_velocity_mean, car_velocity_sigma, self.carCount)
         self.maxVelTruckDist = normal_integers(truck_velocity_mean, truck_velocity_sigma, self.truckCount)
 
         self.startVelCarDist = self.maxVelCarDist
         self.startVelTruckDist = self.maxVelTruckDist
 
+        # min distance (meters)
         self.distanceVelCarDist = normal_integers(distance_mean, distance_sigma, self.carCount)
         self.distanceVelTruckDist = normal_integers(distance_mean, distance_sigma, self.truckCount)
 
+        # probability of correct driver reaction
         self.reactCarDist = random.normal(probability_of_right_driver_reaction_mean, probability_of_right_driver_reaction_sigma, self.carCount)
         self.reactTruckDist = random.normal(probability_of_right_driver_reaction_mean, probability_of_right_driver_reaction_sigma, self.truckCount)
+
+        # ------ plots ------
+        bars = 10
+
+        # acceleration cars
+        plt.hist([x / 10 for x in self.accCarDist], bars, normed=True, label="Cars")
+        plt.xlabel("Acceleration (in meters per conventional time unit in square)")
+        plt.ylabel("Probability density")
+        plt.show()
+
+        # acceleration trucks
+        plt.hist([x / 10 for x in self.accTruckDist], bars, normed=True, label="Trucks")
+        plt.xlabel("Acceleration (in meters per conventional time unit in square)")
+        plt.ylabel("Probability density")
+        plt.show()
+
+        # velocity cars
+        plt.hist([x / 10 for x in self.maxVelCarDist], bars, normed=True, label="Cars")
+        plt.xlabel("Max velocity (in meters per conventional time unit)")
+        plt.ylabel("Probability density")
+        plt.show()
+
+        # velocity trucks
+        plt.hist([x / 10 for x in self.maxVelTruckDist], bars, normed=True, label="Trucks")
+        plt.xlabel("Max velocity (in meters per conventional time unit)")
+        plt.ylabel("Probability density")
+        plt.show()
+
+        # min distance cars
+        plt.hist([x / 10 for x in self.distanceVelCarDist], bars, normed=True, label="Cars")
+        plt.xlabel("Min distance (meters)")
+        plt.ylabel("Probability density")
+        plt.show()
+
+        # min distance trucks
+        plt.hist([x / 10 for x in self.distanceVelTruckDist], bars, normed=True, label="Trucks")
+        plt.xlabel("Min distance (meters)")
+        plt.ylabel("Probability density")
+        plt.show()
+
+        # probability of correct driver reaction (cars)
+        plt.hist(self.reactCarDist, bars, normed=True, label="Cars")
+        plt.xlabel("Probability of correct driver reaction")
+        plt.ylabel("Probability density")
+        plt.show()
+
+        # probability of correct driver reaction (trucks)
+        plt.hist(self.reactTruckDist, bars, normed=True, label="Trucks")
+        plt.xlabel("Probability of correct driver reaction")
+        plt.ylabel("Probability density")
+        plt.show()
 
     def create_vehicles(self):
         vehicles = []
